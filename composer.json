@@ -1,0 +1,21 @@
+{
+    "name": "nathangrove/dbobject",
+    "description": "A DAL for MySQL in PHP",
+    "keywords": ["DAL", "mysql", "database"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan Grove",
+            "email": "nathan@nathangrove.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=5.4"
+    },
+	"autoload": {
+        "psr-4": {
+            "nathangrove\\DBObject\\": "src/"
+        }
+    }
+}
