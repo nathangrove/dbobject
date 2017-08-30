@@ -23,7 +23,7 @@
           $conn = mysqli_connect($host, $username, $password, $db);
 
           if (!$conn) {
-              throw new Exception('Database connection failed');
+              throw new \Exception('Database connection failed');
           } else {
               $this->conn = $conn;
               # we will store it in an obscure global variable
