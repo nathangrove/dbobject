@@ -180,6 +180,23 @@
 
 
         ###################################################
+        # to_array
+        ###################################################
+        public function to_array(){
+            if ($this->db_results === null || !intval(mysqli_num_rows($this->db_results)))
+                return false;
+
+            $response = [];
+            while ($object = mysqli_fetch_object($this->db_results)){
+              $response[] = $object;
+            }
+
+            return $response;
+        }
+        ###################################################
+
+
+        ###################################################
         # update
         ###################################################
         public function update() {
