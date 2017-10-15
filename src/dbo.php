@@ -1,5 +1,5 @@
 <?php
-  
+
   namespace nathangrove\DBObject;
 
     # the table level class
@@ -175,23 +175,6 @@
                 $this->$key = $value;
             }
             return true;
-        }
-        ###################################################
-
-
-        ###################################################
-        # to_array
-        ###################################################
-        public function to_array(){
-            if ($this->db_results === null || !intval(mysqli_num_rows($this->db_results)))
-                return false;
-
-            $response = [];
-            while ($object = mysqli_fetch_object($this->db_results)){
-              $response[] = $object;
-            }
-
-            return $response;
         }
         ###################################################
 
@@ -486,6 +469,53 @@
                 }
             }
             return true;
+        }
+        ###################################################
+
+
+        ###################################################
+        # to_array
+        ###################################################
+        function to_array(){
+
+          if (!count($this->db_fields) || $this->db_results === null || !intval(mysqli_num_rows($this->db_results)))
+            return [];
+
+          $arr = [];
+          while ($this->fetch()) $arr[] = $this->to_object();
+          return $arr;
+        }
+        ###################################################
+
+
+        ###################################################
+        # json()
+        ###################################################
+        public function json() {
+
+            if (!count($this->db_fields) || $this->db_results === null || !intval(mysqli_num_rows($this->db_results)))
+                return false;
+
+            $obj = new \stdClass();
+            foreach ($this->db_fields as $field) $obj->$field = $this->$field;
+
+            return json_encode($obj);
+        }
+        ###################################################
+
+
+        ###################################################
+        # to_object()
+        ###################################################
+        public function to_object() {
+
+            if (!count($this->db_fields) || $this->db_results === null || !intval(mysqli_num_rows($this->db_results)))
+                return false;
+
+            $obj = new \stdClass();
+            foreach ($this->db_fields as $field) $obj->$field = $this->$field;
+
+            return $obj;
         }
         ###################################################
 
